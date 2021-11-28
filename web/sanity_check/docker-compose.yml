@@ -1,0 +1,13 @@
+version: '3'
+services:
+  app:
+    restart: always
+    image: 'node:16-alpine'
+    working_dir: /app
+    volumes:
+      - ./src:/app
+    command: sh -c "npm install && node app.js"
+    ports:
+      - '14253:14253'
+    environment:
+      - FLAG=TSGLIVE{Ph'nglui_mglw'nafh_Cthulhu_R'lyeh_wgah'nagl_fhtagn:_SANITY_CHECK_FAILED!!!!}

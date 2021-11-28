@@ -1,0 +1,10 @@
+{
+  "name": "src",
+  "version": "1.0.0",
+  "description": "grandmaster",
+  "main": "app.js",
+  "dependencies": {
+    "fastify": "^3.24.0",
+    "get-stream": "^6.0.1"
+  }
+}

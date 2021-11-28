@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>Sanity Checker</title>
+		<link
+			rel="stylesheet"
+			href="https://unpkg.com/bulmaswatch/darkly/bulmaswatch.min.css"
+		/>
+		<style>
+			html {
+				text-align: center;
+				padding: 3em 0;
+			}
+			ul {
+				text-align: left;
+				display: inline-block;
+			}
+			p {
+				margin: 0 !important;
+			}
+			.dialog {
+				max-width: 50rem;
+				margin: 0 auto;
+				height: 30rem;
+				overflow-y: auto;
+				display: flex;
+				flex-direction: column;
+				justify-content: flex-end;
+				text-align: left;
+			}
+			.dialog p {
+				line-height: 2em;
+			}
+			.dialog form {
+				margin-top: 1rem;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app" class="content">
+			<h1 class="title is-size-1">Sanity Checker</h1>
+			<div class="dialog">
+				<div class="logs" v-for="log in logs">
+					<p :class="log.user ? 'has-text-warning' : 'has-text-info'">
+						{{log.message}}
+					</p>
+				</div>
+				<form @submit.prevent="onSubmit">
+					<div class="field has-addons">
+						<div class="control">
+							<div class="select">
+								<select v-model="source">
+									<option value="urandom">urandom</option>
+									<option value="random">random</option>
+								</select>
+							</div>
+						</div>
+						<div class="control is-expanded">
+							<input
+								class="input"
+								type="text"
+								placeholder="2d6"
+								v-model="input"
+							/>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<script src="https://unpkg.com/vue/dist/vue.js"></script>
+		<script>
+			new Vue({
+				el: '#app',
+				data: () => ({
+					logs: [
+						{
+							user: false,
+							message: "SAN値チェックツールへようこそ。このツールではダイスを振ることができます。",
+						},
+						{
+							user: false,
+							message: '例: 「2d6」と打ち込むと6面ダイスを2個振ります。',
+						},
+					],
+					input: '',
+					source: 'urandom',
+				}),
+				methods: {
+					async onSubmit () {
+						const input = this.input;
+						this.input = '';
+						this.logs.push({
+							user: true,
+							message: `> ${input}`,
+						});
+
+						const res = await fetch('/', {
+							method: 'POST',
+							headers: {
+								'Content-Type': 'application/json',
+							},
+							body: JSON.stringify({
+								source: this.source,
+								message: input,
+							}),
+						});
+						const result = await res.text();
+						this.logs.push({
+							user: false,
+							message: result
+						});
+					}
+				}
+			})
+		</script>
+	</body>
+</html>
