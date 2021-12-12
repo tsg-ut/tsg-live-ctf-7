@@ -10,8 +10,8 @@
 :------|:------|:------|:------|:------
 [Triplet Sol](crypto/triplet-sol)|crypto|300|@JP3BGY|10
 [Triplet Luna](crypto/triplet-luna)|crypto|300|@JP3BGY|10
-[BF sandbox](pwn/easybf)|pwn|200|@moratorium08|7
-[PWELCOME](pwn/welcome_pwn)|pwn|400|@moratorium08|1
+[PWELCOME](pwn/welcome_pwn)|pwn|200|@moratorium08|7
+[BF sandbox](pwn/easybf)|pwn|400|@moratorium08|1
 [Powered Evil Online](rev/PoweredEvilOnline)|rev|300|@iwashiira|3
 [Sanity Check](web/sanity_check)|web|300|@hakatashi|3
 [PPAP](misc/ppap)|misc|300|@hakatashi|4
